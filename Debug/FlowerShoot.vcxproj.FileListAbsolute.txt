@@ -1,2 +1,0 @@
-C:\Users\g023g1246\Desktop\CppProjects\FlowerShoot\Debug\FlowerShoot.exe
-C:\Users\g023g1246\Desktop\CppProjects\2DShootingCpp\Debug\2DShootingCpp.exe
