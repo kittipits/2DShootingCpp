@@ -11,11 +11,13 @@ void World::draw() const {
 	field_.draw();
 	actors_.draw();
 	score_.draw();
+	player_hp_.draw();
 }
 
 void World::clear() {
 	actors_.clear();
 	score_.clear();
+	player_hp_.initialize();
 	is_game_over_ = false;
 	is_game_clear_ = false;
 }
@@ -53,4 +55,8 @@ bool World::is_game_clear() const{
 	score_file << score_.get();
 	score_file.close();
 	return is_game_clear_;
+}
+
+PlayerHitPoint& World::player_hp() {
+	return player_hp_ ;
 }

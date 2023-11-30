@@ -19,7 +19,8 @@ private:
 	float gameover_timer_{ 150.0f };
 	bool flip_{ false };
 	GScolor color_{ 1.0f, 1.0f, 1.0f, 1.0f };
-	int hp_{ 10 };
+	bool is_invulnurable{ false };
+	bool is_movable{ true };
 };
 
 #endif

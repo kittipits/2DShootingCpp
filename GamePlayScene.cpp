@@ -19,6 +19,8 @@ void GamePlayScene::start(){
 	gsLoadTexture(TextureLetterScore, "Assets/NSCORE.png");
 	gsLoadTexture(TextureLetterShip, "Assets/NSHIP.png");
 	gsLoadTexture(TextureLetterBoss, "Assets/NBOSS.png");
+	gsLoadTexture(TextureGuageRed, "Assets/grp1.png");
+	gsLoadTexture(TextureGuageGreen, "Assets/grp2.png");
 
 	//ÉvÉåÅ[ÉÑÅ[
 	world_.add_actor(new Player{ &world_, GSvector2{0.0f, 200.0f} });
@@ -58,4 +60,6 @@ void GamePlayScene::end(){
 	gsDeleteTexture(TexturePlayerBeam);
 	gsDeleteTexture(TextureEnemyBeam);
 	gsDeleteTexture(TextureBomb);
+	gsDeleteTexture(TextureGuageRed);
+	gsDeleteTexture(TextureGuageGreen);
 }

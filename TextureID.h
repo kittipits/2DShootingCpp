@@ -6,6 +6,8 @@ enum {
 	TexturePlayer,
 	TextureEnemy,
 	TextureEnemyBlue,
+	TextureGuageRed,
+	TextureGuageGreen,
 	TextureBoss,
 	TextureBG1,
 	TextureBG2,

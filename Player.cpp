@@ -5,6 +5,7 @@
 #include "PlayerParabolicBeam.h"
 #include "TextureID.h"
 #include "Explosion.h"
+#include "PlayerHitPoint.h"
 
 Player::Player(IWorld* world, const GSvector2& position) {
 	world_ = world;
@@ -17,16 +18,16 @@ Player::Player(IWorld* world, const GSvector2& position) {
 
 void Player::update(float delta_time) {
 	GSvector2 direction{ 0.0f, 0.0f };
-	if (gsGetKeyState(GKEY_LEFT)) {
+	if (gsGetKeyState(GKEY_LEFT) && is_movable) {
 		direction.x = -1.0f;
 	}
-	if (gsGetKeyState(GKEY_RIGHT)) {
+	if (gsGetKeyState(GKEY_RIGHT) && is_movable) {
 		direction.x = 1.0f;
 	}
-	if (gsGetKeyState(GKEY_UP)) {
+	if (gsGetKeyState(GKEY_UP) && is_movable) {
 		direction.y = -1.0f;
 	}
-	if (gsGetKeyState(GKEY_DOWN)) {
+	if (gsGetKeyState(GKEY_DOWN) && is_movable) {
 		direction.y = 1.0f;
 	}
 
@@ -67,21 +68,21 @@ void Player::update(float delta_time) {
 		timer_ = 0;
 	}
 
-	if (gsGetKeyState(GKEY_SPACE) && timer_ == 0) {
+	if (gsGetKeyState(GKEY_SPACE) && timer_ == 0 && is_movable) {
 		world_->add_actor(new PlayerBeam{ world_, position_ + shoot_position, GSvector2{bullet_direction * 8.0f, 0.0f} });
 		world_->add_actor(new PlayerParabolicBeam{ world_, position_ + shoot_position, GSvector2{bullet_direction * 8.0f, -8.0f} });
 	}
 
-	if (gsGetKeyState(GKEY_Z) && timer_ == 0){
+	if (gsGetKeyState(GKEY_Z) && timer_ == 0 && is_movable){
 		world_->add_actor(new PlayerParabolicBeam{ world_, position_ + shoot_position, GSvector2{bullet_direction * 8.0f, -8.0f} });
 		
 	}
 
-	if (gsGetKeyState(GKEY_X) && timer_ == 0){
+	if (gsGetKeyState(GKEY_X) && timer_ == 0 && is_movable){
 		world_->add_actor(new PlayerBeam{ world_, position_ + shoot_position, GSvector2{bullet_direction * 8.0f, 0.0f} });
 	}
 
-	if (tag_ == "Invulnerable") {
+	if (is_invulnurable) {
 		invul_timer_ -= delta_time;
 		color_.g -= delta_time / 30;
 		color_.b -= delta_time / 30;
@@ -92,14 +93,15 @@ void Player::update(float delta_time) {
 
 		if (invul_timer_ < 0.0f){
 			invul_timer_ = 120.0f;
-			tag_ = "PlayerTag";
+			is_invulnurable = false;
 		}
 	}
 	else {
 		color_ = GScolor{ 1.0f,1.0f,1.0f,1.0f };
 	}
 
-	if (hp_ <= 0) {
+	if (world_->player_hp().get() <= 0) {
+		is_movable = false;
 		color_ = GScolor{ 0.0f,0.0f,0.0f,0.0f };
 		gameover_timer_ -= delta_time;
 	}
@@ -111,9 +113,20 @@ void Player::update(float delta_time) {
 }
 
 void Player::react(Actor& other) {
-	if ((other.tag() == "EnemyTag" || other.tag() == "EnemyBulletTag") && tag_ == "PlayerTag") {
-		take_damage();
-		tag_ = "Invulnerable";
+	if ((other.tag() == "EnemyTag" || other.tag() == "EnemyBulletTag") && !is_invulnurable) {
+		//爆発エフェクトを生成
+		//world_->add_actor(new Explosion{ world_, position_ });
+		// HP減算
+		world_->player_hp().sub(1);
+
+		// HPが尽きたら
+		//if (world_->player_hp().get() <= 0) {
+			// 死亡状態にする
+			//die();
+			// ゲームオーバーの通知をする
+			//world_->game_over();
+		//}
+		is_invulnurable = true;
 	}
 }
 
@@ -130,19 +143,9 @@ void Player::draw() const
 	gsDrawSprite2D(texture_, &position_, &rect, NULL, &color_, NULL, angle_);
 
 	//HPバー
-	GSvector2 ui_pos{ 200.0f, 0.0f };
-	gsDrawSprite2D(TextureLetterShip, &ui_pos, NULL, NULL, NULL, NULL, 0.0f);
 
-	GSrect hp_rect{ 264.0f, 0.0f, 264.0f + hp_ * 8.0f, 16.0f };
-	GScolor hp_color{ 1.0f, 0.2f, 0.2f, 0.8f };
-	gsDrawRectangle2D(&hp_rect, &hp_color);
-}
 
-void Player::take_damage()
-{
-	hp_ -= 1;
-
-	if (hp_ == 0){
-		world_->add_actor(new Explosion{ world_, position_ });
-	}
+	//GSrect hp_rect{ 264.0f, 0.0f, 264.0f + world_->player_hp().get(_ * 8.0f, 16.0f };
+	//GScolor hp_color{ 1.0f, 0.2f, 0.2f, 0.8f };
+	//gsDrawRectangle2D(&hp_rect, &hp_color);
 }
