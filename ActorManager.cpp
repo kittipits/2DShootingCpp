@@ -61,3 +61,19 @@ void ActorManager::clear() {
 	}
 	actors_.clear();
 }
+
+std::vector<Actor*> ActorManager::find_with_tag(const std::string& tag) const{
+	std::vector<Actor*> result;
+	for (auto actor : actors_) {
+		if (actor->tag() == tag) {
+			result.push_back(actor);
+		}
+	}
+	return result;
+}
+
+void ActorManager::send_message(const std::string& message, void* param){
+	for (auto actor : actors_) {
+		actor->handle_message(message, param);
+	}
+}

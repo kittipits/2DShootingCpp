@@ -54,3 +54,5 @@ GSvector2 Actor::velocity() const {
 BoundingRectangle Actor::collider() const {
     return collider_.translate(position_);
 }
+
+void Actor::handle_message(const std::string& message, void* param) { }

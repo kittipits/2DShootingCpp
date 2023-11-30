@@ -29,6 +29,9 @@ public:
 	bool is_game_over() const;
 	bool is_game_clear() const;
 
+	virtual std::vector<Actor*> find_actor_with_tag(const std::string& tag) const override;
+	virtual void send_message(const std::string& message, void* param = nullptr) override;
+
 	// ÉRÉsÅ[ã÷é~
 	World(const World& other) = delete;
 	World& operator = (const World& other) = delete;

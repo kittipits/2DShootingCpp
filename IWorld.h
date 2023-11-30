@@ -2,6 +2,7 @@
 #define IWORLD_H_
 
 #include <string>
+#include <vector>
 
 // アクタークラスの前方宣言
 class Actor;
@@ -19,6 +20,9 @@ public:
 	virtual void add_score(int score) = 0;
 	virtual void game_over() = 0;
 	virtual void game_clear() = 0;
+
+	virtual std::vector<Actor*> find_actor_with_tag(const std::string& tag) const = 0;
+	virtual void send_message(const std::string& message, void* param = nullptr) = 0;
 };
 
 #endif

@@ -37,6 +37,9 @@ public:
 	float rotation() const;
 	GSvector2 velocity() const;
 	BoundingRectangle collider() const;
+
+	// メッセージ処理
+	virtual void handle_message(const std::string& message, void* param);
 	
 	// コピー禁止
 	Actor(const Actor& other) = delete;

@@ -60,3 +60,11 @@ bool World::is_game_clear() const{
 PlayerHitPoint& World::player_hp() {
 	return player_hp_ ;
 }
+
+std::vector<Actor*> World::find_actor_with_tag(const std::string& tag) const {
+	return actors_.find_with_tag(tag);
+}
+
+void World::send_message(const std::string& message, void* param) {
+	actors_.send_message(message, param);
+
