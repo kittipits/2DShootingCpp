@@ -6,6 +6,7 @@
 #include "TextureID.h"
 #include "Explosion.h"
 #include "PlayerHitPoint.h"
+#include "SoundID.h"
 
 Player::Player(IWorld* world, const GSvector2& position) {
 	world_ = world;
@@ -71,15 +72,17 @@ void Player::update(float delta_time) {
 	if (gsGetKeyState(GKEY_SPACE) && timer_ == 0 && is_movable) {
 		world_->add_actor(new PlayerBeam{ world_, position_ + shoot_position, GSvector2{bullet_direction * 8.0f, 0.0f} });
 		world_->add_actor(new PlayerParabolicBeam{ world_, position_ + shoot_position, GSvector2{bullet_direction * 8.0f, -8.0f} });
+		gsPlaySE(Se_WeaponPlayer);
 	}
 
 	if (gsGetKeyState(GKEY_Z) && timer_ == 0 && is_movable){
 		world_->add_actor(new PlayerParabolicBeam{ world_, position_ + shoot_position, GSvector2{bullet_direction * 8.0f, -8.0f} });
-		
+		gsPlaySE(Se_WeaponPlayer);
 	}
 
 	if (gsGetKeyState(GKEY_X) && timer_ == 0 && is_movable){
 		world_->add_actor(new PlayerBeam{ world_, position_ + shoot_position, GSvector2{bullet_direction * 8.0f, 0.0f} });
+		gsPlaySE(Se_WeaponPlayer);
 	}
 
 	if (is_invulnurable) {
@@ -104,6 +107,11 @@ void Player::update(float delta_time) {
 		is_movable = false;
 		color_ = GScolor{ 0.0f,0.0f,0.0f,0.0f };
 		gameover_timer_ -= delta_time;
+		if (!is_exploded) {
+			world_->add_actor(new Explosion{ world_, position_ });
+			gsPlaySE(Se_ExplosionPlayer);
+			is_exploded = true;
+		}
 	}
 
 	if (gameover_timer_ < 0) {

@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "EnemyGenerator.h"
 #include "TextureID.h"
+#include "SoundID.h"
 
 void GamePlayScene::start(){
 	// テクスチャの読み込み
@@ -21,6 +22,11 @@ void GamePlayScene::start(){
 	gsLoadTexture(TextureLetterBoss, "Assets/NBOSS.png");
 	gsLoadTexture(TextureGuageRed, "Assets/grp1.png");
 	gsLoadTexture(TextureGuageGreen, "Assets/grp2.png");
+	
+	gsLoadSE(Se_ExplosionPlayer, "Assets/explosion_player.wav", 1, GWAVE_DEFAULT);
+	gsLoadSE(Se_WeaponPlayer, "Assets/weapon_player.wav", 5, GWAVE_DEFAULT);
+	gsLoadBGM(Music_BackGround, "Assets/music_background.ogg", GS_TRUE);
+	gsPlayBGM(Music_BackGround);
 
 	//プレーヤー
 	world_.add_actor(new Player{ &world_, GSvector2{0.0f, 200.0f} });
@@ -62,4 +68,9 @@ void GamePlayScene::end(){
 	gsDeleteTexture(TextureBomb);
 	gsDeleteTexture(TextureGuageRed);
 	gsDeleteTexture(TextureGuageGreen);
+
+	gsDeleteSE(Se_ExplosionPlayer);
+	gsDeleteSE(Se_WeaponPlayer);
+	gsStopBGM();
+	gsDeleteBGM(Music_BackGround);
 }

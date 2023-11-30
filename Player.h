@@ -21,6 +21,7 @@ private:
 	GScolor color_{ 1.0f, 1.0f, 1.0f, 1.0f };
 	bool is_invulnurable{ false };
 	bool is_movable{ true };
+	bool is_exploded{ false };
 };
 
 #endif

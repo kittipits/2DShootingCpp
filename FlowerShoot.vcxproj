@@ -186,6 +186,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SceneNull.h" />
     <ClInclude Include="Score.h" />
+    <ClInclude Include="SoundID.h" />
     <ClInclude Include="TextureID.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="World.h" />

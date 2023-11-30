@@ -6,6 +6,7 @@
 #include "EnemyBlue.h"
 #include "TextureID.h"
 #include "Explosion.h"
+#include "SoundID.h"
 
 #include <Math.h>		//三角関数 (sin cos)
 
@@ -202,7 +203,10 @@ void MyEnemy::update(float delta_time){
 		float explosion_x = gsRandf(position_.x - 64.0f, position_.x);
 		float explosion_y = gsRandf(position_.y - 64.0f, position_.y);
 		GSvector2 explosion_pos{ explosion_x, explosion_y };
-		if (count_ % 6 == 0) world_->add_actor(new Explosion{ world_, explosion_pos });
+		if (count_ % 6 == 0) {
+			world_->add_actor(new Explosion{ world_, explosion_pos });
+			gsPlaySE(Se_ExplosionPlayer);
+		}
 		count_ = CLAMP(count_, 1, 121);
 		
 		//しばらく待って、シーンを変更

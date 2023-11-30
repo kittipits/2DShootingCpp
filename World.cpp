@@ -67,4 +67,4 @@ std::vector<Actor*> World::find_actor_with_tag(const std::string& tag) const {
 
 void World::send_message(const std::string& message, void* param) {
 	actors_.send_message(message, param);
-
+}
