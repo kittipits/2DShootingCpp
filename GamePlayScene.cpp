@@ -22,6 +22,7 @@ void GamePlayScene::start(){
 	gsLoadTexture(TextureLetterBoss, "Assets/NBOSS.png");
 	gsLoadTexture(TextureGuageRed, "Assets/grp1.png");
 	gsLoadTexture(TextureGuageGreen, "Assets/grp2.png");
+	gsLoadTexture(TextureParticle, "Assets/particle.png");
 	
 	gsLoadSE(Se_ExplosionPlayer, "Assets/explosion_player.wav", 1, GWAVE_DEFAULT);
 	gsLoadSE(Se_WeaponPlayer, "Assets/weapon_player.wav", 5, GWAVE_DEFAULT);

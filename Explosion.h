@@ -11,8 +11,9 @@ public:
 	virtual void draw() const;
 
 private:
-	float timer_{ 0.0f };
 	GScolor color_{ 1.0f, 1.0f, 1.0f, 1.0f };
+	GSvector2 center_{ 32.0f, 32.0f };
+	GSvector2 scale_{ 1.0f, 1.0f };
 };
 
 #endif

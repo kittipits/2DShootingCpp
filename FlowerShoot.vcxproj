@@ -151,6 +151,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyEnemy.cpp" />
     <ClCompile Include="NumberTexture.cpp" />
+    <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerBeam.cpp" />
     <ClCompile Include="PlayerHitPoint.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="IWorld.h" />
     <ClInclude Include="MyEnemy.h" />
     <ClInclude Include="NumberTexture.h" />
+    <ClInclude Include="Particle.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerBeam.h" />
     <ClInclude Include="PlayerHitPoint.h" />

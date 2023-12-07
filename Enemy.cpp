@@ -5,6 +5,7 @@
 #include "TextureID.h"
 #include "Explosion.h"
 #include "SoundID.h"
+#include "Particle.h"
 
 Enemy::Enemy(IWorld* world, const GSvector2& position){
 	world_ = world;
@@ -38,6 +39,10 @@ void Enemy::react(Actor& other) {
 	if (other.tag() == "PlayerTag" || other.tag() == "PlayerBulletTag") {
 		die();
 		world_->add_actor(new Explosion{ world_, position_ });
+		for (int i = 0; i < 20; ++i) {
+			world_->add_actor(new Particle{ world_, position_, gsRandf(0.0f, 360.0f), gsRandf(1.0f, 3.0f) });
+		}
+
 		gsPlaySE(Se_ExplosionPlayer);
 		world_->add_score(100);
 	}

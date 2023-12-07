@@ -7,6 +7,7 @@
 #include "TextureID.h"
 #include "Explosion.h"
 #include "SoundID.h"
+#include "Particle.h"
 
 #include <Math.h>		//ŽOŠpŠÖ” (sin cos)
 
@@ -206,6 +207,10 @@ void MyEnemy::update(float delta_time){
 		if (count_ % 6 == 0) {
 			world_->add_actor(new Explosion{ world_, explosion_pos });
 			gsPlaySE(Se_ExplosionPlayer);
+
+			for (int i = 0; i < 10; ++i) {
+				world_->add_actor(new Particle{ world_, explosion_pos, gsRandf(0.0f, 360.0f), gsRandf(1.0f, 3.0f) });
+			}
 		}
 		count_ = CLAMP(count_, 1, 121);
 		

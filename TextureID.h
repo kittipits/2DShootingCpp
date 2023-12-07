@@ -22,7 +22,8 @@ enum {
 	TextureLetterShip,
 	TextureLetterBoss,
 	TextureGameOver,
-	TextureGameClear
+	TextureGameClear,
+	TextureParticle
 };
 
 #endif
